@@ -9,7 +9,8 @@ body {
     font-family: "Bebas Neue", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.6rem; /* Police plus grande */
+    font-size: 1.6rem;
+    /* Police plus grande */
     line-height: 1.6;
     color: #222;
     overflow-x: hidden;
@@ -32,17 +33,20 @@ section {
 }
 
 h2 {
-    font-size: 3.6rem; /* Titre plus gros */
+    font-size: 3.6rem;
+    /* Titre plus gros */
     margin-bottom: 2.5rem;
     text-align: center;
     color: #111;
-    font-weight: 400; /* Bebas Neue est déjà épaisse */
+    font-weight: 400;
+    /* Bebas Neue est déjà épaisse */
     letter-spacing: -0.5px;
 }
 
 p {
     margin-bottom: 1rem;
-    font-size: 1.4rem; /* Paragraphe plus gros */
+    font-size: 1.4rem;
+    /* Paragraphe plus gros */
     color: #444;
 }
 
@@ -200,23 +204,137 @@ nav a:hover {
     margin: 0 auto;
 }
 
-/* ——— Section Mon Parcours ——— */
-#parcours .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Centre le contenu */
+/* ——— Frise chronologique ——— */
+.timeline {
+    position: relative;
+    padding: 20px 0;
 }
 
-#parcours p {
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #000;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.timeline-item:nth-child(odd) {
+    flex-direction: row-reverse;
+}
+
+.timeline-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #000;
+    z-index: 10;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+}
+
+.timeline-content {
+    width: 45%;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.timeline-content h3 {
+    font-size: 1.4rem;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.timeline-content h4 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.timeline-content p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: auto;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-right: auto;
+}
+
+/* ——— Responsive ——— */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+
+    .timeline-item {
+        flex-direction: row !important;
+        margin-bottom: 30px;
+    }
+
+    .timeline-marker {
+        left: 30px;
+    }
+
+    .timeline-content {
+        width: calc(100% - 60px);
+        margin-left: 60px !important;
+    }
+}
+
+/* ——— Section E5 ——— */
+#E5 {
+    background: inherit;
     text-align: center;
-    /* Centre le texte */
-    max-width: 800px;
-    /* Limite la largeur pour que ce soit lisible */
-    margin: 0 auto;
-    /* Centre le paragraphe dans la section */
-    line-height: 1.8;
-    /* Espacement entre les lignes pour plus de lisibilité */
+}
+
+.E5-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.E5-btn {
+    background: #000;
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.E5-btn:hover {
+    background: #333;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 /* ——— Section Projets ——— */
@@ -276,31 +394,7 @@ nav a:hover {
     color: #000;
 }
 
-/* ——— Section badges dans À propos ——— */
-.petits-badges {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 20px;
-}
 
-.petit-badge {
-    background: #000;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 1rem;
-    display: inline-block;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.petit-badge:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-3px);
-    cursor: default;
-}
 
 /* ——— Section Formation & Travail ——— */
 .formation-travail-container {
@@ -353,28 +447,36 @@ nav a:hover {
 /* ——— Conteneur du logo dans la carte ——— */
 .logo-badge-container {
     position: absolute;
-    top: 20px; /* Marge en haut */
-    left: 20px; /* Marge à gauche */
-    width: 110px; /* Plus large */
-    height: 110px; /* Plus haut */
+    top: 20px;
+    /* Marge en haut */
+    left: 20px;
+    /* Marge à gauche */
+    width: 110px;
+    /* Plus large */
+    height: 110px;
+    /* Plus haut */
     display: flex;
     justify-content: center;
     align-items: center;
     background: #fff;
-    border-radius: 10px; /* Coins un peu plus arrondis */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    /* Coins un peu plus arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
 }
 
 .logo-badge-inside {
-    width: 100px; /* Plus large */
-    height: 100px; /* Plus haut */
+    width: 100px;
+    /* Plus large */
+    height: 100px;
+    /* Plus haut */
     object-fit: contain;
     transition: transform 0.3s ease;
 }
 
 .logo-badge-inside:hover {
-    transform: scale(1.15); /* Agrandissement au survol */
+    transform: scale(1.15);
+    /* Agrandissement au survol */
 }
 
 /* ——— Section Formation & Travail ——— */
@@ -387,10 +489,11 @@ nav a:hover {
 
 .grand-badge {
     background: #fff;
-    padding: 60px 40px 40px; /* Ajoute de l'espace en haut pour le logo */
+    padding: 60px 40px 40px;
+    /* Ajoute de l'espace en haut pour le logo */
     border-radius: 16px;
     text-align: center;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -415,7 +518,7 @@ nav a:hover {
 
 .grand-badge:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .grand-badge h3 {
@@ -433,7 +536,8 @@ nav a:hover {
     }
 
     .grand-badge {
-        padding: 60px 25px 25px; /* Moins de padding sur mobile */
+        padding: 60px 25px 25px;
+        /* Moins de padding sur mobile */
     }
 
     .logo-badge-container {
@@ -448,6 +552,7 @@ nav a:hover {
         height: 28px;
     }
 }
+
 /* ——— Responsive pour mobile ——— */
 @media (max-width: 768px) {
     .formation-travail-container {
